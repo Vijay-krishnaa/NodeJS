@@ -1,5 +1,6 @@
 const http = require('http');
-const fs = require('fs')
+const fs = require('fs');
+const { log } = require('console');
 
 const server = http.createServer((req, res) => {
   if (req.url === '/home') {
@@ -33,10 +34,32 @@ const server = http.createServer((req, res) => {
     res.write('</html>');
     return res.end();
   }
-    else if (req.url.toLocaleLowerCase === '/form-submit' && req.method==='POST') {
-      fs.writeFileSync('user.txt' , 'Vijay Krishna')
+    else if (req.url.toLocaleLowerCase() === '/form-submit' && req.method==='POST') {
+      let body = [];
+      req.on('data',(chunk)=>{
+        console.log(chunk);
+        body.push(chunk);
+      })
+      req.on('end'  ,()=>{
+        const fullbody = Buffer.concat(body).toString();
+        console.log(fullbody);
+        const params = new URLSearchParams(fullbody);
+        // const bodyObj = {};
+        // for(const [key , val] of params.entries()){
+        //   bodyObj[key] = val;
+       
+        //   console.log(bodyObj);
+        // }
+        // console.log(bodyObj);
+        const bodyObj = Object.fromEntries(params)
+        console.log(bodyObj);  
+        fs.writeFileSync('user.txt' , JSON.stringify(bodyObj))
+        
+        
+      })
+    
       res.statusCode= 302;
-      res.setHeader('Location','./home')
+      res.setHeader('Location','/home')
       
       return res.end();
     
