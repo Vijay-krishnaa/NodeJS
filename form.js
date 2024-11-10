@@ -52,7 +52,7 @@ const fs = require('fs');
         // }
         // console.log(bodyObj);
         const bodyObj = Object.fromEntries(params)
-        console.log(bodyObj);  
+        // console.log(bodyObj);  
         fs.writeFileSync('user.txt' , JSON.stringify(bodyObj))
         
         
