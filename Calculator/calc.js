@@ -1,4 +1,5 @@
 const fs = require('fs');
+const {sumhandler} = require('../Calculator/sum')
 
 const reqhandler = (req, res) => {
   if (req.url === '/') {
@@ -37,36 +38,21 @@ const reqhandler = (req, res) => {
   }
 
   if (req.url === '/calc-result' && req.method === 'POST') {
-    const body = [];
-    req.on('data', chunk => {
-      body.push(chunk);
-    });
+    return sumhandler(req,res);
 
-    req.on('end', () => {
-      const fullbody = Buffer.concat(body).toString();
-      console.log(fullbody);
-      
-      const params = new URLSearchParams(fullbody);
-      const bodyObj = Object.fromEntries(params);
-      console.log(bodyObj);
-      
-      const sum = Number(bodyObj.No1)+ Number(bodyObj.No2);
-
-      res.setHeader('Content-type', 'text/html');
-      res.write(`
-        <html lang="en">
-        <head>
-          <title>Result</title>
-        </head>
-        <body>
-          <h1>Result: ${sum}</h1>
-          <a href="/calc">Back to Calculator</a>
-        </body>
-        </html>
-      `);
-      return res.end();
-    });
   }
-};
+  else {
+  
+    res.statusCode = 404;
+    res.setHeader('Content-type', 'text/html');
+    res.write(`
+      <html>
+      <head><title>404</title></head>
+      <body><h1>Page Not Found</h1></body>
+      </html>
+    `);
+    return res.end();
+  }
+}
 
 module.exports = reqhandler;
