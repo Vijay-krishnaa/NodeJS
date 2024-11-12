@@ -5,8 +5,8 @@
   "main": "App.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node App.js",
-    "ja-n-lode": "node App.js"
+    "start": "nodemon App.js",
+    "ja-n-lode": "nodemon App.js"
   },
   "author": "Vijay Krishna",
   "license": "ISC",
