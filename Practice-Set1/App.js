@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const bodyparser = require("body-parser");
 app.use((req, res, next) => {
   console.log("<h1>first middleware</h1>");
   next();
@@ -36,8 +37,12 @@ app.get("/contact-us", (req, res, next) => {
 
       
       `);
+  next();
 });
+app.use(bodyparser.urlencoded());
 app.post("/contact-us", (req, res, next) => {
+  console.log(req.body);
+
   res.send(`Thanks for detail`);
 });
 const port = 5173;
