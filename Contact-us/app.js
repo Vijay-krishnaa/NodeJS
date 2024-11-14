@@ -6,6 +6,7 @@ const rootDir = require("./utils/util");
 app.use(express.urlencoded());
 const port = 3000;
 app.use(contactRoute);
+app.use(express.static(path.join(rootDir, "public")));
 app.use((req, res, next) => {
   res.status(404).sendFile(path.join(rootDir, "views", "404.html"));
 });
