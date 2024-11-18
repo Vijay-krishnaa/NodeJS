@@ -6,9 +6,9 @@ registerRouter.get("/register-here", (req, res) => {
   res.render("register");
 });
 registerRouter.post("/thanks", (req, res) => {
-  RegisteredHome.push(req.body.houseName);
+  RegisteredHome.push(req.body);
   console.log(req.body.houseName);
   res.render("thanks");
 });
 
-module.exports = registerRouter;
+module.exports = { registerRouter, RegisteredHome };

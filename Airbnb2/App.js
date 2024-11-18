@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const homeRouter = require("./routes/home");
-const registerRouter = require("./routes/register");
+const { registerRouter } = require("./routes/register");
 const successfullRoute = require("./routes/submitsuccessful");
 const ErrRouter = require("./routes/404");
 
