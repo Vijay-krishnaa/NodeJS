@@ -1,6 +1,9 @@
-const RegisteredHome = [];
+const { Home, RegisteredHome } = require("../models/home_details");
+
 const postAddhome = (req, res) => {
-  RegisteredHome.push(req.body);
+  const { houseName, location, price } = req.body;
+  const home = new Home(houseName, location, price);
+  home.save();
   res.render("thanks", { RegisteredHome });
 };
-module.exports = { postAddhome, RegisteredHome };
+module.exports = { postAddhome };
