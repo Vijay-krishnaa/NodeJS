@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Page Not Found</title>
+  <title>My Bookings</title>
+  <title></title>
   
   <style>
     /* Global Styles */
@@ -38,10 +39,9 @@
 
     /* 404 Page Styles */
     h1 {
-      font-size: 6rem;
+      font-size: 3rem;
       color: #e74c3c;
       margin-top: 3rem;
-      margin-bottom: 1rem;
     }
 
     h2 {
@@ -64,53 +64,23 @@
       cursor: pointer;
       margin-top: 20px;
       text-decoration: none;
-      border-radius: 5px;
-      transition: background-color 0.3s ease;
     }
 
     .button:hover {
       background-color: #2980b9;
-    }
-
-    /* Add a background image */
-    body {
-      background: url('https://www.example.com/path-to-image.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: white;
-    }
-
-    .container {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-    }
-
-    /* Additional styles for responsiveness */
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 4rem;
-      }
-
-      h2 {
-        font-size: 1.5rem;
-      }
     }
   </style>
   
 </head>
 <body>
   <!-- Include the navigation bar -->
-  <%- include('./partials/nav') %> 
 
+<%- include("../partials/nav")%>
   <!-- 404 Page Content -->
   <div class="container">
-    <h1>404</h1>
-    <h2>Page Not Found</h2>
-    <a href="/" class="button">Go Back to Home</a>
-    <br>
-    
+    <h1>These are Your Bookings</h1>
+  
+ 
   </div>
 
 </body>

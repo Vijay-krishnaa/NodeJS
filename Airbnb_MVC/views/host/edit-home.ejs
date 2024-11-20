@@ -35,7 +35,7 @@
     ul li {
       font-size: 1.2em;
       padding: 20px;
-      background-color: #fff;
+      background-color: #e3f2fd; /* Light blue background */
       border-radius: 8px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -61,22 +61,31 @@
 
     .location {
       font-size: 1.1em;
-      color: #777;
+      color: #555;
       margin-bottom: 10px;
     }
 
     .price {
       font-size: 1.3em;
-      color: #4CAF50;
+      color: #ff6f00; /* Orange text for price */
       font-weight: bold;
     }
 
-    /* Styling for links inside the list items */
-    ul li a {
-      text-decoration: none;
-      color: #4CAF50;
-      font-weight: bold;
-      margin-top: 10px;
+    /* Styling for buttons (Edit/Delete) */
+    button {
+      background-color: #ff9800; /* Orange background */
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      font-size: 1em;
+    }
+
+    button:hover {
+      background-color: #e68900; /* Darker orange on hover */
+      transform: scale(1.05);
     }
 
     /* Responsive design for mobile */
@@ -119,9 +128,9 @@
   </style>
 </head>
 <body>
-  <%- include('partials/nav') %> <!-- Your Navbar -->
+  <%- include('../partials/nav') %> <!-- Your Navbar -->
 
-  <h1>Welcome to Home</h1>
+  <h1>Welcome to Host_Home</h1>
 
   <ul>
     <% RegisteredHome.forEach(home => { %>
@@ -129,11 +138,12 @@
         <div class="house-name">Housename: <%= home.houseName %></div>
         <div class="location">Location: <%= home.location %></div>
         <div class="price">Price: <%= home.price %></div>
+        <div><button>Edit</button></div>
+        <div><button>Delete</button></div>
       </li>
     <% }); %>
   </ul>
 
-  <!-- Footer -->
   <footer>
     <p>&copy; 2024 Home Listings. All rights reserved.</p>
     <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>

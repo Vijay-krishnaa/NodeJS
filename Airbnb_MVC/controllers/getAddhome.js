@@ -1,3 +1,3 @@
 exports.getAddhome = (req, res) => {
-  res.render("register");
+  res.render("host/register");
 };

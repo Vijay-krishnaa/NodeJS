@@ -10,7 +10,7 @@ const port = 3000;
 
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
+app.set("views", "./views");
 
 app.use(homeRouter);
 app.use(registerRouter);
