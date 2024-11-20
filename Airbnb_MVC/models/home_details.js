@@ -1,29 +1,33 @@
 const path = require("path");
 const fs = require("fs");
 const rootDir = require("../utils/utils");
+const filepath = path.join(rootDir, "data", "home.json");
 let RegisteredHome = [];
 
 class Home {
   constructor(houseName, location, price) {
-    this.houseName = houseName;
-    this.location = location;
-    this.price = price;
+    Object.assign(this, { houseName, location, price });
   }
 
   save(callback) {
-    const homepath = path.join(rootDir, "data", "home.json");
-    fs.readFile(homepath, "utf-8", (err, data) => {
+    this.id = Math.random().toString();
+    fs.readFile(filepath, "utf-8", (err, data) => {
       RegisteredHome = !err && data.length > 0 ? JSON.parse(data) : [];
       RegisteredHome.push(this);
-      fs.writeFile(homepath, JSON.stringify(RegisteredHome), callback);
+      fs.writeFile(filepath, JSON.stringify(RegisteredHome), callback);
     });
   }
 
   static readData(callback) {
-    const filepath = path.join(rootDir, "data", "home.json");
     fs.readFile(filepath, "utf-8", (err, data) => {
       RegisteredHome = !err && data.length > 0 ? JSON.parse(data) : [];
       callback(err, RegisteredHome);
+    });
+  }
+  static findById(homeId, callback) {
+    this.readData((err, homes) => {
+      if (err) return callback(err, null);
+      callback(null, homes.find((home) => home.id === homeId) || null);
     });
   }
 }

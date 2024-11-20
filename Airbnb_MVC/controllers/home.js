@@ -1,27 +1,29 @@
-const { Home, RegisteredHome } = require("../models/home_details");
+const { Home } = require("../models/home_details");
 
-const home = (req, res) => {
+const renderPage = (req, res, view) => {
   Home.readData((err, data) => {
     if (err) {
-      console.error("Error reading data:", err);
-      return res.status(500).send("Error loading data");
+      console.log(`Error reading data for ${view}:`, err);
+      return res.status(500).send(`Error loading data for ${view}`);
     }
-    res.render("store/home", { RegisteredHome: data });
+    res.render(view, { RegisteredHome: data });
   });
 };
 
-const getBookings = (req, res) => {
-  res.render("store/booking");
-};
-
-const favlist = (req, res) => {
-  Home.readData((err, data) => {
-    if (err) {
-      console.error("Error reading data for favlist:", err);
-      return res.status(500).send("Error loading favorites list data");
+const home = (req, res) => renderPage(req, res, "store/home");
+const getBookings = (req, res) => res.render("store/booking");
+const favlist = (req, res) => renderPage(req, res, "store/fav-list");
+const homelist = (req, res) => renderPage(req, res, "store/home-list");
+const homedetails = (req, res) => {
+  const homeId = req.params.homeId;
+  Home.findById(homeId, (err, home) => {
+    if (!home) {
+      res.redirect("/");
+    } else {
+      console.log(home);
+      res.render("store/home-details", { home });
     }
-    res.render("store/fav-list", { RegisteredHome: data });
   });
 };
 
-module.exports = { home, getBookings, favlist };
+module.exports = { home, getBookings, favlist, homelist, homedetails };

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Home Page</title>
+  <style>
+    /* Global Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 2.5em;
+      color: #4CAF50;
+      margin-bottom: 30px;
+    }
+
+    /* Styling the home details */
+    .home-details {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #fff;
+      padding: 30px;
+      margin: 20px auto;
+      width: 80%;
+      max-width: 800px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .home-details h2 {
+      font-size: 2em;
+      color: #333;
+    }
+
+    .home-details .location, .home-details .price {
+      font-size: 1.3em;
+      color: #777;
+      margin-top: 10px;
+    }
+
+    .home-details .price {
+      color: #4CAF50;
+      font-weight: bold;
+    }
+
+    /* Button Styling */
+    .home-details button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.1em;
+      margin-top: 20px;
+    }
+
+    .home-details button:hover {
+      background-color: #45a049;
+    }
+
+    /* Footer Styles */
+    footer {
+      text-align: center;
+      padding: 20px 0;
+      background-color: #333;
+      color: #fff;
+      margin-top: 50px;
+    }
+
+    footer a {
+      color: #4CAF50;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <%- include('../partials/nav') %> <!-- Your Navbar -->
+
+  <h1>Home Details</h1>
+
+  <!-- Display selected home details -->
+  <div class="home-details">
+    <h2><%= home.houseName %></h2>
+    <div class="location">Location: <%= home.location %></div>
+    <div class="price">Price: <%= home.price %></div>
+    <button>Book</button>
+  </div>
+
+  <footer>
+    <p>&copy; 2024 Home Listings. All rights reserved.</p>
+    <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+  </footer>
+</body>
+</html>
