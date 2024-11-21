@@ -11,8 +11,8 @@ const renderPage = (req, res, view) => {
 };
 
 const home = (req, res) => renderPage(req, res, "store/home");
-const getBookings = (req, res) => res.render("store/booking");
-const favlist = (req, res) => renderPage(req, res, "store/fav-list");
+const getBookings = (req, res) => res.render(req, res, "store/booking");
+
 const homelist = (req, res) => renderPage(req, res, "store/home-list");
 const homedetails = (req, res) => {
   const homeId = req.params.homeId;
@@ -21,9 +21,9 @@ const homedetails = (req, res) => {
       res.redirect("/");
     } else {
       console.log(home);
-      res.render("store/home-details", { home });
+      res.render("store/home-details", { home: home });
     }
   });
 };
 
-module.exports = { home, getBookings, favlist, homelist, homedetails };
+module.exports = { home, getBookings, homelist, homedetails };

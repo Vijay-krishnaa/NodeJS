@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Home Page</title>
+  <title>Home Details Page</title>
   <style>
     /* Global Styles */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #f4f4f9;
-      color: #333;
+      background-image: url('https://media.istockphoto.com/id/1442148484/photo/3d-rendering-of-modern-suburban-house-in-the-garden.jpg?s=612x612&w=0&k=20&c=8Iu_h5cFOEnlPz4_n2nfSUtOyfM_a-hHx9rmlxMF2rI=');
+      background-size: cover;
+      background-position: center;
+      color: #fff;
     }
 
     h1 {
       text-align: center;
-      margin-top: 20px;
+      margin-top: 50px;
       font-size: 2.5em;
       color: #4CAF50;
       margin-bottom: 30px;
@@ -25,13 +27,13 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      background-color: #fff;
+      background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
       padding: 30px;
       margin: 20px auto;
       width: 80%;
       max-width: 800px;
       border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     }
 
     .home-details h2 {
@@ -41,7 +43,7 @@
 
     .home-details .location, .home-details .price {
       font-size: 1.3em;
-      color: #777;
+      color: #333;
       margin-top: 10px;
     }
 
@@ -55,11 +57,12 @@
       background-color: #4CAF50;
       color: white;
       border: none;
-      padding: 10px 20px;
+      padding: 12px 24px;
       border-radius: 5px;
       cursor: pointer;
-      font-size: 1.1em;
+      font-size: 1.2em;
       margin-top: 20px;
+      transition: background-color 0.3s ease;
     }
 
     .home-details button:hover {
@@ -79,6 +82,17 @@
       color: #4CAF50;
       text-decoration: none;
     }
+
+    /* Media Queries for Responsiveness */
+    @media (max-width: 768px) {
+      .home-details {
+        width: 90%;
+        padding: 20px;
+      }
+      h1 {
+        font-size: 2em;
+      }
+    }
   </style>
 </head>
 <body>
@@ -92,6 +106,7 @@
     <div class="location">Location: <%= home.location %></div>
     <div class="price">Price: <%= home.price %></div>
     <button>Book</button>
+    <%- include('../partials/fav', { home: home }) %> <!-- Include the favorite button/section -->
   </div>
 
   <footer>

@@ -190,7 +190,8 @@
         <div class="house-name">Housename: <%= home.houseName %></div>
         <div class="location">Location: <%= home.location %></div>
         <div class="price">Price: <%= home.price %></div>
-        <div><button>Book</button></div>
+        <div><a href="/home-list/<%= home.id %>">Details</a></div>
+        
       </li>
     <% }); %>
   </ul>
