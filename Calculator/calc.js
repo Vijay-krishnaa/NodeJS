@@ -1,58 +1,31 @@
-const fs = require('fs');
-const {sumhandler} = require('../Calculator/sum')
+const sumRequesthandler = require("./sum");
 
-const reqhandler = (req, res) => {
-  if (req.url === '/') {
-    res.setHeader('Content-type', 'text/html');
-    res.write(`
-      <html>
-      <head>
-        <title>Calculator</title>
-      </head>
-      <body>
-        <h1>Welcome to My Calculator</h1>
-        <a href="/calc">Calculator</a>
-      </body>
-      </html>
-    `);
+const requesthandler = (req, res) => {
+  console.log(req.url, req.method);
+
+  if (req.url === "/") {
+    res.write(`<h1>This is Home</h1>
+             <a href="/calc">Calc</a>`);
     return res.end();
   }
-
-  if (req.url === '/calc' && req.method === 'GET') {
-    res.setHeader('Content-type', 'text/html');
-    res.write(`
-      <html lang="en">
-      <head>
-        <title>Calculator</title>
-      </head>
-      <body>
-        <form action='/calc-result' method='POST'>
-          <input type="text" placeholder="Enter 1st number" name="No1" />
-          <input type="text" placeholder="Enter 2nd number" name="No2" />
-          <button type="submit">Sum</button>
-        </form>
-      </body>
-      </html>
-    `);
+  if (req.url === "/calc") {
+    res.setHeader("Content-Type", "text/html");
+    res.write(`<form action="/calc-res" method="POST">
+<input type="number" placeholder="enter 1st no" name="first">
+  <input type="number" placeholder="enter 2nd no" name="second">
+  <button type="submit">add</button>
+</form>`);
     return res.end();
   }
-
-  if (req.url === '/calc-result' && req.method === 'POST') {
-    return sumhandler(req,res);
-
+  if (req.url === "/calc-res" && req.method === "POST") {
+    return sumRequesthandler(req, res);
   }
-  else {
-  
-    res.statusCode = 404;
-    res.setHeader('Content-type', 'text/html');
-    res.write(`
-      <html>
-      <head><title>404</title></head>
-      <body><h1>Page Not Found</h1></body>
-      </html>
-    `);
-    return res.end();
-  }
-}
 
-module.exports = reqhandler;
+  res.write(`
+        <h1>404 Page Does not Exist</h1>
+        <a href="/">Go To Home</a> 
+  `);
+  return res.end();
+};
+
+module.exports = requesthandler;

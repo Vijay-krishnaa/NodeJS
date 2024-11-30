@@ -1,36 +1,16 @@
-const sumhandler = (req,res)=>{
- const body = [];
-  req.on('data', chunk => {
-    body.push(chunk);
-  });
-
-  req.on('end', () => {
-    const fullbody = Buffer.concat(body).toString();
-    console.log(fullbody);
-    
-    const params = new URLSearchParams(fullbody);
-    const bodyObj = Object.fromEntries(params);
-    console.log(bodyObj);
-    
-    const sum = Number(bodyObj.No1)+ Number(bodyObj.No2);
-
-    res.setHeader('Content-type', 'text/html');
+const sumRequesthandler = (req, res) => {
+  const body = [];
+  req.on("data", (chunk) => body.push(chunk));
+  req.on("end", () => {
+    const bodystr = Buffer.concat(body).toString();
+    console.log(bodystr);
+    const bodyObj = Object.fromEntries(new URLSearchParams(bodystr));
+    const result = Number(bodyObj.first) + Number(bodyObj.second);
+    res.setHeader("Content-Type", "text/html");
     res.write(`
-      <html lang="en">
-      <head>
-        <title>Result</title>
-      </head>
-      <body>
-        <h1>Result: ${sum}</h1>
-        <a href="/calc">Back to Calculator</a>
-      </body>
-      </html>
-    `);
+       <h1>The Sum of Number is ${result}</h1>
+      `);
     return res.end();
   });
-}
-
-
-
-
-exports.sumhandler = sumhandler;
+};
+module.exports = sumRequesthandler;

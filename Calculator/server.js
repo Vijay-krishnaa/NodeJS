@@ -1,10 +1,6 @@
-const http = require('http')
-const reqhandler =require ('./calc')
-
-const server=http.createServer(reqhandler);
-
-const port = 3003
-server.listen(port,()=>{
-  console.log(`Server is running on http://localhost:${port}`);
-  
-})
+const http = require("http");
+const requesthandler = require("./calc");
+const server = http.createServer(requesthandler);
+server.listen(3000, () => {
+  console.log(`server is running at http://localhost:3000`);
+});
