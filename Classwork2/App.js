@@ -1,7 +1,10 @@
 const jsonwebtoken = require("jsonwebtoken");
 const express = require("express");
 const bcrypt = require("bcrypt");
+const { config } = require("dotenv");
+config();
 const app = express();
+console.log(process.env.MY_KEY);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -14,15 +17,20 @@ app.get("/", (req, res) => {
 // Route to generate JWT
 app.post("/generate", (req, res) => {
   let user = req.body;
-  let token = jsonwebtoken.sign(user, "Smacky12", { expiresIn: "1h" }); // Extended expiration time
+  const secretKey = process.env.JWT_SECRET;
+  let token = jsonwebtoken.sign(user, secretKey, { expiresIn: "1h" }); // Extended expiration time
   res.send({ token });
 });
 
 // Route to verify JWT+
 app.get("/verify", (req, res) => {
   try {
+    let user = req.body;
+    const secretKey = process.env.JWT_SECRET;
     let token = req.headers.authorization.split(" ")[1];
-    let data = jsonwebtoken.verify(token, "Smacky12");
+    let data = jsonwebtoken.verify(token, secretKey);
+    console.log(secretKey);
+
     res.send({ data });
   } catch (error) {
     res.status(401).send({ error: "Invalid or missing token" });
