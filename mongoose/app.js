@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const path = require("path");
 const app = express();
 
-// app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -48,7 +48,7 @@ app.post("/newUser", async (req, res) => {
     let userData = new userModel(bodyData);
     let response = await userData.save();
     console.log(req.body);
-    res.status(201).send("Data send Successfully");
+    res.status(201).send("Data sent successfully");
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
