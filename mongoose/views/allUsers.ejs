@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Users</title>
+  <style>
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 8px; text-align: left; border: 1px solid #ddd; }
+    th { background-color: #f2f2f2; }
+  </style>
+</head>
+<body>
+  <h1>All Registered Users</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Username</th>
+        <th>Age</th>
+        <th>City</th>
+        <th>State</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% users.forEach(user => { %>
+        <tr>
+          <td><%= user.firstName %></td>
+          <td><%= user.username %></td>
+          <td><%= user.age || 'N/A' %></td>
+          <td><%= user.address?.city || 'N/A' %></td>
+          <td><%= user.address?.state || 'N/A' %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</body>
+</html>

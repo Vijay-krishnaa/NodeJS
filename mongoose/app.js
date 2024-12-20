@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 const path = require("path");
 const app = express();
 
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -47,14 +49,23 @@ app.post("/newUser", async (req, res) => {
     const bodyData = req.body;
     let userData = new userModel(bodyData);
     let response = await userData.save();
-    console.log(req.body);
     res.status(201).send("Data sent successfully");
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
 });
 
-// Start the server
+app.get("/allUsers", async (req, res) => {
+  try {
+    const users = await userModel.find({});
+
+    res.render("allUsers", { users });
+  } catch (err) {
+    console.error("Error fetching users:", err);
+    res.status(500).send({ message: err.message });
+  }
+});
+
 const port = 3001;
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
