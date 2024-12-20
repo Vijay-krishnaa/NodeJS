@@ -3,11 +3,11 @@ const mongoose = require("mongoose");
 const path = require("path");
 const app = express();
 
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
 let dburl = "mongodb://127.0.0.1:27017/myserver";
 mongoose
@@ -55,10 +55,38 @@ app.post("/newUser", async (req, res) => {
   }
 });
 
+app.get("/getUser", async (req, res) => {
+  try {
+    const { username } = req.body;
+    const response = await userModel.findOne({ username });
+    res.status(200).send(response);
+  } catch (err) {
+    res.send({ message: err.message });
+  }
+});
+
+app.delete("/deleteUser", async (req, res) => {
+  try {
+    const { username } = req.body;
+    const response = await userModel.deleteOne({ username });
+    res.status(200).send(response);
+  } catch (err) {
+    res.send({ message: err.message });
+  }
+});
+
+app.put("/updateUser/:username", async (req, res) => {
+  try {
+    const { username } = req.params;
+    const response = await userModel.updateOne({ username }, req.body);
+    res.status(200).send(response);
+  } catch (err) {
+    res.send({ message: err.message });
+  }
+});
 app.get("/allUsers", async (req, res) => {
   try {
     const users = await userModel.find({});
-
     res.render("allUsers", { users });
   } catch (err) {
     console.error("Error fetching users:", err);
